@@ -16,16 +16,11 @@ import androidx.navigation.ui.NavigationUI
 import com.example.rickandmorty2.databinding.FragmentCheatBinding
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class CheatFragment : Fragment() {
 
     private lateinit var binding: FragmentCheatBinding
     private lateinit var navController: NavController
 
-    lateinit var question: String
-    lateinit var answer: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +36,17 @@ class CheatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
+        //take arguments passed from main fragment and put into a variable
         var args = CheatFragmentArgs.fromBundle(arguments!!)
 
         binding.apply {
-            question = args.question
-            answer = args.answer
-            questionView.setText(question)
+            //display question passed from main fragment
+            questionView.text = args.question
             cheatButton.setOnClickListener {
-                answerView.setText(answer)
+                //if cheat button pushed, display answer passed from main fragment
+                answerView.text = args.answer
             }
+            //if cancel pushed, navigate back
             cancelButton.setOnClickListener {
                 activity!!.onBackPressed()
             }

@@ -20,10 +20,6 @@ import timber.log.Timber
 
 const val KEY_QUESTION_INDEX = "question_index";
 
-/**
- * A simple [Fragment] subclass.
- */
-
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
@@ -123,7 +119,7 @@ class MainFragment : Fragment() {
                 navController.navigate(MainFragmentDirections
                     .actionMainFragmentToCheatFragment(getString(questionBank[questionIndex].textResId), questionBank[questionIndex].answer.toString()))
             }
-
+            //bind question view to the current question
             questionView.setText(questionBank[questionIndex].textResId);
         }
 
