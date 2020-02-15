@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.rickandmorty2.AboutFragment"
-        android:label="fragment_about"
+        android:label="About"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/cheatFragment"
         android:name="com.example.rickandmorty2.CheatFragment"
-        android:label="fragment_cheat"
-        tools:layout="@layout/fragment_cheat" >
+        android:label="Cheat"
+        tools:layout="@layout/fragment_cheat">
         <argument
             android:name="question"
             app:argType="string" />
@@ -25,13 +25,15 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.rickandmorty2.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="Quiz"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:popUpTo="@+id/mainFragment" />
         <action
             android:id="@+id/action_mainFragment_to_cheatFragment"
-            app:destination="@id/cheatFragment" />
+            app:destination="@id/cheatFragment"
+            app:popUpTo="@+id/mainFragment" />
     </fragment>
 </navigation>

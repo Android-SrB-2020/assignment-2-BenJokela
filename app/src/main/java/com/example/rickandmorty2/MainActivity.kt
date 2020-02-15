@@ -1,8 +1,13 @@
 package com.example.rickandmorty2
-
+/*
+    Ben Jokela
+    Asn 2
+    2020-02-15
+ */
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -12,8 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.rickandmorty2.databinding.ActivityMainBinding
-import com.example.rickandmorty2.Question
-import com.example.rickandmorty2.R
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(binding.navView, navController)
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)

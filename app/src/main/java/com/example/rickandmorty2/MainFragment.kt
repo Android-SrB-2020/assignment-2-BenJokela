@@ -1,5 +1,9 @@
 package com.example.rickandmorty2
-
+/*
+    Ben Jokela
+    Asn 2
+    2020-02-15
+ */
 
 import android.os.Bundle
 import android.renderscript.ScriptGroup
@@ -12,14 +16,19 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.rickandmorty2.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
+import timber.log.Timber
+
+const val KEY_QUESTION_INDEX = "question_index";
 
 /**
  * A simple [Fragment] subclass.
  */
+
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var navController: NavController
+
 
     private val questionBank = listOf(
         Question(R.string.question_1, false),
@@ -50,6 +59,9 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (savedInstanceState != null) {
+            questionIndex = savedInstanceState.getInt(KEY_QUESTION_INDEX, 0)
+        }
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
@@ -87,10 +99,12 @@ class MainFragment : Fragment() {
                 questionView.setText(questionBank[questionIndex].textResId)
 
             }
+
             prevButton.setOnClickListener {
                 questionIndex = if (questionIndex == 0) questionBank.size - 1 else questionIndex - 1
-
+                questionView.setText(questionBank[questionIndex].textResId)
             }
+
             trueButton.setOnClickListener {
                 val toastText =
                     if (questionBank[questionIndex].answer) getString(R.string.you_got_it) else getString(
@@ -98,18 +112,28 @@ class MainFragment : Fragment() {
                     )
                 Toast.makeText(activity, toastText, Toast.LENGTH_SHORT).show()
             }
+
             falseButton.setOnClickListener{
                 val toastText = if(questionBank[questionIndex].answer) getString(R.string.wrong) else getString(
                     R.string.you_got_it)
                 Toast.makeText(activity, toastText, Toast.LENGTH_SHORT).show()
             }
 
+            cheatButton.setOnClickListener{
+                navController.navigate(MainFragmentDirections
+                    .actionMainFragmentToCheatFragment(getString(questionBank[questionIndex].textResId), questionBank[questionIndex].answer.toString()))
+            }
+
+            questionView.setText(questionBank[questionIndex].textResId);
         }
 
-        binding.cheatButton.setOnClickListener{
+    }
+    //save state (which question?) when the app is paused or stopped (rotate)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-            navController.navigate(MainFragmentDirections
-                .actionMainFragmentToCheatFragment(getString(questionBank[questionIndex].textResId), questionBank[questionIndex].answer.toString()))
-        }
+        Timber.i("onSaveInstanceState Called")
+
+        outState.putInt(KEY_QUESTION_INDEX, questionIndex);
     }
 }

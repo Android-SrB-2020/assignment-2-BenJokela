@@ -1,6 +1,9 @@
 package com.example.rickandmorty2
-
-
+/*
+    Ben Jokela
+    Asn 2
+    2020-02-15
+ */
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
